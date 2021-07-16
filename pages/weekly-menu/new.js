@@ -1,9 +1,9 @@
 import Template from '../../components/Template'
 
-export default function NewRecipe() {
+export default function NewWeeklyMenu() {
   return (
     <div>
-      <Template title="Recipe" />
+      <Template title="Weekly Menu" />
     </div>
   )
 }

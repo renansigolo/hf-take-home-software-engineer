@@ -218,6 +218,28 @@ function RecipeHeading() {
   )
 }
 
+function SectionHeading({ title }) {
+  return (
+    <div className="pb-5 border-b border-gray-200 sm:flex sm:items-center sm:justify-between">
+      <h3 className="text-2xl leading-6 font-medium text-gray-900">{title}</h3>
+      <div className="mt-3 sm:mt-0 sm:ml-4">
+        <Link
+          href={`/${title.toLowerCase().replace(/\s+/g, '-')}/new`}
+          passHref
+        >
+          <button
+            type="button"
+            className="inline-flex place-self-end items-center px-3.5 py-2 border border-transparent text-sm leading-4 font-medium rounded-full shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+          >
+            <PlusIcon className="-ml-1 mr-2 h-5 w-5" aria-hidden="true" />
+            {title}
+          </button>
+        </Link>
+      </div>
+    </div>
+  )
+}
+
 /** Recipes Component */
 function Recipes() {
   const deleteRecipe = (recipe) => {
@@ -636,14 +658,35 @@ export default function Home() {
         </Popover>
         <main className="-mt-24 pb-8 min-h-full">
           <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:max-w-7xl lg:px-8">
-            <h1 className="sr-only">Page title</h1>
+            <h1 className="sr-only">Recipes Section</h1>
             {/* Main grid */}
             <div className="grid grid-cols-1 gap-4 items-start lg:gap-8">
               {/* Main column */}
               <div className="grid grid-cols-1 gap-4 lg:col-span-2">
-                <section aria-labelledby="section-1-title">
+                <section aria-labelledby="recipes-section">
                   <div className="rounded-lg bg-white overflow-hidden shadow p-6">
                     <RecipeHeading />
+
+                    <Recipes />
+
+                    <Pagination />
+                  </div>
+                </section>
+              </div>
+            </div>
+          </div>
+
+          <div className="relative py-10"></div>
+
+          <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:max-w-7xl lg:px-8">
+            <h1 className="sr-only">Weekly Menu Section</h1>
+            {/* Main grid */}
+            <div className="grid grid-cols-1 gap-4 items-start lg:gap-8">
+              {/* Main column */}
+              <div className="grid grid-cols-1 gap-4 lg:col-span-2">
+                <section aria-labelledby="recipes-section">
+                  <div className="rounded-lg bg-white overflow-hidden shadow p-6">
+                    <SectionHeading title="Weekly Menu" />
 
                     <Recipes />
 
