@@ -1,37 +1,34 @@
 import { Menu, Popover, Transition } from '@headlessui/react'
 import {
-  FilterIcon,
+  BeakerIcon,
   MenuIcon,
   PencilIcon,
   StarIcon,
   UserGroupIcon,
   XIcon,
 } from '@heroicons/react/outline'
-import { SearchIcon } from '@heroicons/react/solid'
 import Head from 'next/head'
+import Link from 'next/link'
 import { Fragment } from 'react'
-// import Image from 'next/image'
-// import HelloLogoWhite from '../public/images/Hello_Fresh_Lockup_Green-Lime_White-Font.webp'
-// import HelloLogoBlack from '../public/images/Hello_Fresh_Lockup_Green-Lime_Black-Font.webp'
 
 const user = {
-  name: 'Chelsea Hagon',
-  handle: 'chelseahagon',
-  email: 'chelseahagon@example.com',
-  role: 'Human Resources Manager',
-  imageId: '1550525811-e5869dd03032',
-  imageUrl: '/images/profile/photo-1550525811-e5869dd03032.webp',
+  userId: 'UmVuYW4gU2lnb2xv', // UserId is the name converted to Base64
+  name: 'Renan Sigolo',
+  handle: 'renansigolo',
+  email: 'renan.sigolo@gmail.com',
+  role: 'Future Hello Fresh Software Engineer',
+  imageUrl: '/images/profile/uid-UmVuYW4gU2lnb2xv.webp',
 }
 const navLinks = [
-  { title: 'All Recipes', active: true },
-  { title: 'Veggie Only', active: false },
-  { title: 'Protein Rich', active: false },
+  { active: true, title: 'All Recipes', urlPath: '/' },
+  { active: false, title: 'Weekly Menu', urlPath: '/' },
+  { active: false, title: 'Manage Both', urlPath: '/' },
 ]
 
-const posts = [
+const recipes = [
   {
     title: 'Beef with Dijon Mustard',
-    href: '#',
+    href: 'QmVlZiB3aXRoIERpam9uIE11c3RhcmQ=',
     category: { name: 'Protein', href: '#' },
     description:
       'Lorem ipsum dolor sit amet ipsum dolor sit amet ipsum dolor sit amet.',
@@ -48,7 +45,7 @@ const posts = [
   },
   {
     title: 'Veggie Salad Bowl',
-    href: '#',
+    href: 'VmVnZ2llIFNhbGFkIEJvd2w=',
     category: { name: 'Veggie', href: '#' },
     description:
       'Lorem ipsum dolor sit amet ipsum dolor sit amet ipsum dolor sit amet.',
@@ -65,7 +62,7 @@ const posts = [
   },
   {
     title: 'Fish for Lunch',
-    href: '#',
+    href: 'RmlzaCBmb3IgTHVuY2g=',
     category: { name: 'Seafood', href: '#' },
     description:
       'Lorem ipsum dolor sit amet ipsum dolor sit amet ipsum dolor sit amet.',
@@ -137,6 +134,68 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 
+/** Tabs Component */
+const tabs = [
+  { name: 'Week 01', href: '#', current: true },
+  { name: 'Week 02', href: '#', current: false },
+  { name: 'Week 03', href: '#', current: false },
+  { name: 'Week 04', href: '#', current: false },
+  { name: 'Week 05', href: '#', current: false },
+]
+
+export function Tabs() {
+  return (
+    <div>
+      <div className="sm:hidden">
+        <label htmlFor="tabs" className="sr-only">
+          Select a tab
+        </label>
+        <select
+          id="tabs"
+          name="tabs"
+          className="block w-full focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md"
+          defaultValue={tabs.find((tab) => tab.current).name}
+        >
+          {tabs.map((tab) => (
+            <option key={tab.name}>{tab.name}</option>
+          ))}
+        </select>
+      </div>
+      <div className="hidden sm:block">
+        <nav
+          className="relative z-0 rounded-lg shadow flex divide-x divide-gray-200"
+          aria-label="Tabs"
+        >
+          {tabs.map((tab, tabIdx) => (
+            <a
+              key={tab.name}
+              href={tab.href}
+              className={classNames(
+                tab.current
+                  ? 'text-gray-900'
+                  : 'text-gray-500 hover:text-gray-700',
+                tabIdx === 0 ? 'rounded-l-lg' : '',
+                tabIdx === tabs.length - 1 ? 'rounded-r-lg' : '',
+                'group relative min-w-0 flex-1 overflow-hidden bg-white py-4 px-4 text-sm font-medium text-center hover:bg-gray-50 focus:z-10'
+              )}
+              aria-current={tab.current ? 'page' : undefined}
+            >
+              <span>{tab.name}</span>
+              <span
+                aria-hidden="true"
+                className={classNames(
+                  tab.current ? 'bg-indigo-500' : 'bg-transparent',
+                  'absolute inset-x-0 bottom-0 h-0.5'
+                )}
+              />
+            </a>
+          ))}
+        </nav>
+      </div>
+    </div>
+  )
+}
+
 export default function Home() {
   return (
     <div>
@@ -154,11 +213,11 @@ export default function Home() {
                   {/* Logo */}
                   <div className="absolute left-0 flex-shrink-0 lg:static">
                     <a href="#">
-                      <span className="sr-only">Workflow</span>
+                      <span className="sr-only">Logo</span>
                       <img
                         className="h-8 w-auto"
                         src="/images/Hello_Fresh_Lockup_Green-Lime_White-Font.webp"
-                        alt="Workflow"
+                        alt="Logo"
                       />
                     </a>
                   </div>
@@ -175,7 +234,7 @@ export default function Home() {
                               <img
                                 className="h-8 w-8 rounded-full"
                                 src={user.imageUrl}
-                                alt=""
+                                alt="User Image Profile"
                               />
                             </Menu.Button>
                           </div>
@@ -192,41 +251,30 @@ export default function Home() {
                             >
                               <Menu.Item>
                                 {({ active }) => (
-                                  <a
-                                    href="#"
-                                    className={classNames(
-                                      active ? 'bg-gray-100' : '',
-                                      'block px-4 py-2 text-sm text-gray-700'
-                                    )}
-                                  >
-                                    Your Profile
-                                  </a>
+                                  <Link href={`/profile/${user.userId}`}>
+                                    <a
+                                      className={classNames(
+                                        active ? 'bg-gray-100' : '',
+                                        'block px-4 py-2 text-sm text-gray-700'
+                                      )}
+                                    >
+                                      Your Profile
+                                    </a>
+                                  </Link>
                                 )}
                               </Menu.Item>
                               <Menu.Item>
                                 {({ active }) => (
-                                  <a
-                                    href="#"
-                                    className={classNames(
-                                      active ? 'bg-gray-100' : '',
-                                      'block px-4 py-2 text-sm text-gray-700'
-                                    )}
-                                  >
-                                    Settings
-                                  </a>
-                                )}
-                              </Menu.Item>
-                              <Menu.Item>
-                                {({ active }) => (
-                                  <a
-                                    href="#"
-                                    className={classNames(
-                                      active ? 'bg-gray-100' : '',
-                                      'block px-4 py-2 text-sm text-gray-700'
-                                    )}
-                                  >
-                                    Sign out
-                                  </a>
+                                  <Link href="/signout">
+                                    <a
+                                      className={classNames(
+                                        active ? 'bg-gray-100' : '',
+                                        'block px-4 py-2 text-sm text-gray-700'
+                                      )}
+                                    >
+                                      Sign out
+                                    </a>
+                                  </Link>
                                 )}
                               </Menu.Item>
                             </Menu.Items>
@@ -262,46 +310,25 @@ export default function Home() {
                   <div className="grid grid-cols-3 gap-8 items-center">
                     <div className="col-span-2">
                       <nav className="flex space-x-4">
-                        <FilterIcon
+                        <BeakerIcon
                           className="block h-6 w-6 text-white self-center"
                           aria-hidden="true"
                         />
                         {navLinks.map((link) => (
-                          <a
-                            key={link.title}
-                            href="#"
-                            className={classNames(
-                              link.active ? 'text-white' : 'text-indigo-100',
-                              'text-sm font-medium rounded-md bg-white bg-opacity-0 px-3 py-2 hover:bg-opacity-10'
-                            )}
-                            aria-current={link.active ? 'page' : 'false'}
-                          >
-                            {link.title}
-                          </a>
+                          <Link href="#">
+                            <a
+                              key={link.title}
+                              className={classNames(
+                                link.active ? 'text-white' : 'text-indigo-100',
+                                'text-sm font-medium rounded-md bg-white bg-opacity-0 px-3 py-2 hover:bg-opacity-10'
+                              )}
+                              aria-current={link.active ? 'page' : 'false'}
+                            >
+                              {link.title}
+                            </a>
+                          </Link>
                         ))}
                       </nav>
-                    </div>
-                    <div>
-                      <div className="max-w-md w-full mx-auto">
-                        <label htmlFor="search" className="sr-only">
-                          Search
-                        </label>
-                        <div className="relative text-white focus-within:text-gray-600">
-                          <div className="pointer-events-none absolute inset-y-0 left-0 pl-3 flex items-center">
-                            <SearchIcon
-                              className="h-5 w-5"
-                              aria-hidden="true"
-                            />
-                          </div>
-                          <input
-                            id="search"
-                            className="block w-full bg-white bg-opacity-20 py-2 pl-10 pr-3 border border-transparent rounded-md leading-5 text-gray-900 placeholder-white focus:outline-none focus:bg-opacity-100 focus:border-transparent focus:placeholder-gray-500 focus:ring-0 sm:text-sm"
-                            placeholder="Search"
-                            type="search"
-                            name="search"
-                          />
-                        </div>
-                      </div>
                     </div>
                   </div>
                 </div>
@@ -356,23 +383,21 @@ export default function Home() {
                             </div>
                           </div>
                           <div className="mt-3 px-2 space-y-1">
+                            <Link href="#">
+                              <a className="block rounded-md px-3 py-2 text-base text-gray-900 font-medium hover:bg-gray-100 hover:text-gray-800">
+                                Home
+                              </a>
+                            </Link>
+                            <Link href="#">
+                              <a className="block rounded-md px-3 py-2 text-base text-gray-900 font-medium hover:bg-gray-100 hover:text-gray-800">
+                                All Recipes
+                              </a>
+                            </Link>
                             <a
                               href="#"
                               className="block rounded-md px-3 py-2 text-base text-gray-900 font-medium hover:bg-gray-100 hover:text-gray-800"
                             >
-                              Home
-                            </a>
-                            <a
-                              href="#"
-                              className="block rounded-md px-3 py-2 text-base text-gray-900 font-medium hover:bg-gray-100 hover:text-gray-800"
-                            >
-                              All Recipes
-                            </a>
-                            <a
-                              href="#"
-                              className="block rounded-md px-3 py-2 text-base text-gray-900 font-medium hover:bg-gray-100 hover:text-gray-800"
-                            >
-                              Veggie Only
+                              Weekly Menu
                             </a>
                             <a
                               href="#"
@@ -393,26 +418,26 @@ export default function Home() {
                             </div>
                             <div className="ml-3 min-w-0 flex-1">
                               <div className="text-base font-medium text-gray-800 truncate">
-                                Rebecca Nicholas
+                                {user.name}
                               </div>
                               <div className="text-sm font-medium text-gray-500 truncate">
-                                rebecca.nicholas@example.com
+                                {user.email}
                               </div>
                             </div>
                           </div>
                           <div className="mt-3 px-2 space-y-1">
-                            <a
-                              href="#"
-                              className="block rounded-md px-3 py-2 text-base text-gray-900 font-medium hover:bg-gray-100 hover:text-gray-800"
-                            >
-                              Your Profile
-                            </a>
-                            <a
-                              href="#"
-                              className="block rounded-md px-3 py-2 text-base text-gray-900 font-medium hover:bg-gray-100 hover:text-gray-800"
-                            >
-                              Sign out
-                            </a>
+                            {/* encodeURIComponent is used in the example to keep the path utf-8 compatible.
+                            <Link href={`/profile/${encodeURIComponent(user.userId)}`}> */}
+                            <Link href={`/profile/${user.userId}`}>
+                              <a className="block rounded-md px-3 py-2 text-base text-gray-900 font-medium hover:bg-gray-100 hover:text-gray-800">
+                                Your Profile
+                              </a>
+                            </Link>
+                            <Link href="/signout">
+                              <a className="block rounded-md px-3 py-2 text-base text-gray-900 font-medium hover:bg-gray-100 hover:text-gray-800">
+                                Sign out
+                              </a>
+                            </Link>
                           </div>
                         </div>
                       </div>
@@ -431,9 +456,6 @@ export default function Home() {
               {/* Main column */}
               <div className="grid grid-cols-1 gap-4 lg:col-span-2">
                 <section aria-labelledby="section-1-title">
-                  <h2 className="sr-only" id="section-1-title">
-                    Section title
-                  </h2>
                   <div className="rounded-lg bg-white overflow-hidden shadow">
                     <div className="p-6">
                       <section className="relative pb-16 px-4 sm:px-6  lg:px-8">
@@ -441,17 +463,18 @@ export default function Home() {
                           <div className="bg-white h-1/3 sm:h-2/3" />
                         </div>
                         <div className="relative max-w-7xl mx-auto">
+                          <Tabs></Tabs>
                           <div className="mt-12 max-w-lg mx-auto grid gap-5 lg:grid-cols-3 lg:max-w-none">
-                            {posts.map((post) => (
+                            {recipes.map((recipe) => (
                               <div
-                                key={post.title}
+                                key={recipe.title}
                                 className="flex flex-col rounded-lg shadow-lg overflow-hidden"
                               >
                                 <div className="flex-shrink-0">
                                   <img
                                     className="h-48 w-full object-cover"
-                                    src={post.imageUrl}
-                                    alt=""
+                                    src={recipe.imageUrl}
+                                    alt="Recipe Image"
                                   />
                                 </div>
                                 <div className="flex-1 bg-white p-6 flex flex-col justify-between">
@@ -483,13 +506,13 @@ export default function Home() {
                                     <div className="flex justify-between">
                                       <p className="text-sm font-medium text-indigo-600">
                                         <a
-                                          href={post.category.href}
+                                          href={recipe.category.href}
                                           className="hover:underline"
                                         >
-                                          {post.category.name}
+                                          {recipe.category.name}
                                         </a>
                                       </p>
-                                      {post.isActive ? (
+                                      {recipe.isActive ? (
                                         <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
                                           Active
                                         </span>
@@ -499,12 +522,15 @@ export default function Home() {
                                         </span>
                                       )}
                                     </div>
-                                    <a href={post.href} className="block mt-2">
+                                    <a
+                                      href={recipe.href}
+                                      className="block mt-2"
+                                    >
                                       <p className="text-xl font-semibold text-gray-900">
-                                        {post.title}
+                                        {recipe.title}
                                       </p>
                                       <p className="mt-3 text-base text-gray-500">
-                                        {post.description}
+                                        {recipe.description}
                                       </p>
                                     </a>
                                   </div>
@@ -518,24 +544,26 @@ export default function Home() {
                                     <div className="ml-3">
                                       <p className="text-sm font-medium text-gray-900">
                                         <span>
-                                          {post.orderedTotal} Users Ordered
+                                          {recipe.orderedTotal} Users Ordered
                                         </span>
                                       </p>
                                     </div>
                                   </div>
                                   <div className="mt-6 flex items-center">
-                                    <a href="#" className="w-full">
-                                      <button
-                                        type="button"
-                                        className="inline-flex items-center px-3 py-2 w-full justify-center border border-transparent shadow-sm text-sm leading-4 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                                      >
-                                        <PencilIcon
-                                          className="-ml-0.5 mr-2 h-4 w-4"
-                                          aria-hidden="true"
-                                        />
-                                        Edit Recipe
-                                      </button>
-                                    </a>
+                                    <Link href={`/recipe/${recipe.href}`}>
+                                      <a className="w-full">
+                                        <button
+                                          type="button"
+                                          className="inline-flex items-center px-3 py-2 w-full justify-center border border-transparent shadow-sm text-sm leading-4 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                                        >
+                                          <PencilIcon
+                                            className="-ml-0.5 mr-2 h-4 w-4"
+                                            aria-hidden="true"
+                                          />
+                                          Edit Recipe
+                                        </button>
+                                      </a>
+                                    </Link>
                                   </div>
                                 </div>
                               </div>
