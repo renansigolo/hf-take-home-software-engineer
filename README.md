@@ -1,63 +1,58 @@
 # Hello Fresh Take Home Application
 
-# Software Engineer
+This application uses [Next.js](https://nextjs.org/) and [Tailwind CSS](https://tailwindcss.com/) to render the Frontend of the Take Home Application.
 
-## Backend Focused
+## About
 
-### Problem Statement
+Create a take home single-page application (SPA) which allows to manage weekly menu and associated recipies.
 
-Create a menu planning service which allows to manage weekly menu and associated recipies.
+## Features
 
-#### Context
+Context
 
-- A [weekly menu](https://www.hellofresh.com.au/plans/) contains a set of [recipies](https://www.hellofresh.com.au/recipes/). Each week different set of recipies are selected. See example [menu for this week](https://www.hellofresh.com.au/plans/).
-- A [recipe](https://www.hellofresh.com.au/recipes/beef-veggie-ragu-spaghetti-5fa9c324cb8f8c0b3a183d01) contains ingredients, step-by-step instructions, nutirtional information, classification, and other metadata. See examples recipes here [1](https://www.hellofresh.com.au/recipes/southeast-asian-chicken-coconut-soup-5fa9c26209c8db59115d3f4f), [2](https://www.hellofresh.com.au/recipes/saucy-coconut-chicken-noodles-5f9b3c7198ecf4455b27d94d), [3](https://www.hellofresh.com.au/recipes/dukkah-roasted-sweet-potato-5f9b43847aacaa50f037d858).
+- A weekly menu contains a set of recipies. Each week different set of recipies are selected. See example menu for this week.
+- A recipe contains ingredients, step-by-step instructions, nutirtional information, classification, and other metadata. See examples recipes here 1, 2, 3.
 - A customer can review weekly menu as well as recipe by assigning ratings and/or adding comments.
 
-#### Tasks
+## Contributing
 
-1. Create data models using your selected ORM for weekly menu, recipe, ingredients, review, etc. Make sure these data models are appripriately connected using `FK`, `1:M`, `M:M ` relationships.
-2. Create REST APIs to create, list, read, update, delete data model objects. Bonus if you can secure API using API tokens (recommended) or JWT tokens. You can use Google Authentication to obtain JWT token.
-3. Create unit and E2E tests. For E2E API tests you can use [Postman](https://www.postman.com/) but ensure Postman collection are commited to your repository. For unit tests use a framework acccording to your stack.
-4. Make sure your tests can be run from a single command - create test runner `makefile` or `bash` script to run your tests.
+For contributing to this project please read through our contributing guidelines to learn about our submission process, coding rules and more.
 
-### Recommended Technology Stack
+Open issues, bugs, and feature requests are all listed on the issues tab and labeled accordingly. Feel free to open bug tickets and make feature requests.
 
-Choose the one you are most familiar.
+View [CONTRIBUTING.md](CONTRIBUTING.md) to learn about the style guide, scripts, and how to contribute.
 
-- Python 3, Flask as web framework, PeeWee as ORM, Docker as Container, PostgreSQL as a database, Pytest for unit test, Postman for API test
-- Python 3, Flask as web framework, Flask-PyMongo as ORM, Docker as Container, MongoDB as a database, Pytest for unit test, Postman for API test
-- Go, chi or beego as web framework, sqlx or beego as ORM, Docker as Container, PostgreSQL as a database, go testing package, Postman for API test
+## Built With
 
-## Frontend Focused
+- [Next.js](https://nextjs.org/) - The React framework
+- [Tailwind CSS](https://tailwindcss.com/) - The CSS framework
 
-### Problem Statement
+## Dev tools
 
-Create a menu planning single-page application (SPA) which allows to manage weekly menu and associated recipies.
+- [Prettier](https://prettier.io/) - Prettier is an opinionated code formatter.
+- [Husky](https://github.com/typicode/husky.git) - Git hooks made easy.
+- [NPM](https://www.npmjs.com/) - Build amazing things.
+- [Cypress](https://www.cypress.io/) - Fast, easy and reliable testing for anything that runs in a browser.
 
-#### Context
+## Contributors
 
-- A [weekly menu](https://www.hellofresh.com.au/plans/) contains a set of [recipies](https://www.hellofresh.com.au/recipes/). Each week different set of recipies are selected. See example [menu for this week](https://www.hellofresh.com.au/plans/).
-- A [recipe](https://www.hellofresh.com.au/recipes/beef-veggie-ragu-spaghetti-5fa9c324cb8f8c0b3a183d01) contains ingredients, step-by-step instructions, nutirtional information, classification, and other metadata. See examples recipes here [1](https://www.hellofresh.com.au/recipes/southeast-asian-chicken-coconut-soup-5fa9c26209c8db59115d3f4f), [2](https://www.hellofresh.com.au/recipes/saucy-coconut-chicken-noodles-5f9b3c7198ecf4455b27d94d), [3](https://www.hellofresh.com.au/recipes/dukkah-roasted-sweet-potato-5f9b43847aacaa50f037d858).
-- A customer can review weekly menu as well as recipe by assigning ratings and/or adding comments.
+- [Renan Sigolo](https://github.com/renansigolo)
 
-#### Tasks
+## License
+
+- This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details
+
+## TODO
 
 1. Create a single-page application (SPA) which allows an end user
 
-- create/read/update/delete [recipies](https://www.hellofresh.com.au/recipes/). Render recipies as paginated list, display a selected data points.
-- create/read/update/delete [weekly menu](https://www.hellofresh.com.au/plans/). Render weekly menu as paginated list (typically 52 weeks in a year).
-- assign [recipies](https://www.hellofresh.com.au/recipes/) to weekly [weekly menu](https://www.hellofresh.com.au/plans/)
+   1.1 create/read/update/delete recipies. Render recipies as paginated list, display a selected data points.
+
+   1.2 create/read/update/delete weekly menu. Render weekly menu as paginated list (typically 52 weeks in a year).
+
+   1.3 assign recipies to weekly weekly menu
 
 2. You can use mock data or APIs, else you create REST/GraphQL endpoints
 3. Write a few unit tests and end-to-end tests for components
 4. Write CI/CD pipeline using Github action and deploy app to Github Pages
 5. Bonus point if you add Google Authentication and protect routes.
-
-### Recommended Technology Stack
-
-Choose the one you are most familiar.
-
-- JavaScript/TypeScript, Vue.js
-
-- JavaScript/TypeScript, React
