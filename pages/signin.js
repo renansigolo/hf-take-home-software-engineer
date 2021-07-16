@@ -2,7 +2,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 
 /** Mocks Unauthenticated Route */
-export default function SignOut() {
+export default function SignIn() {
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 px-2 sm:px-6 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">

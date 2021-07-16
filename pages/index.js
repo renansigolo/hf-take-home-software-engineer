@@ -5,11 +5,15 @@ import {
   PencilIcon,
   StarIcon,
   UserGroupIcon,
+  PlusIcon,
+  TrashIcon,
   XIcon,
 } from '@heroicons/react/outline'
+import { MinusSmIcon, CheckCircleIcon } from '@heroicons/react/solid'
 import Head from 'next/head'
 import Link from 'next/link'
 import { Fragment } from 'react'
+import toast from 'react-hot-toast'
 
 const user = {
   userId: 'UmVuYW4gU2lnb2xv', // UserId is the name converted to Base64
@@ -27,7 +31,7 @@ const navLinks = [
 const recipes = [
   {
     title: 'Beef with Dijon Mustard',
-    href: 'QmVlZiB3aXRoIERpam9uIE11c3RhcmQ=',
+    id: 'QmVlZiB3aXRoIERpam9uIE11c3RhcmQ=',
     category: { name: 'Protein', href: '#' },
     description:
       'Lorem ipsum dolor sit amet ipsum dolor sit amet ipsum dolor sit amet.',
@@ -44,7 +48,7 @@ const recipes = [
   },
   {
     title: 'Veggie Salad Bowl',
-    href: 'VmVnZ2llIFNhbGFkIEJvd2w=',
+    id: 'VmVnZ2llIFNhbGFkIEJvd2w=',
     category: { name: 'Veggie', href: '#' },
     description:
       'Lorem ipsum dolor sit amet ipsum dolor sit amet ipsum dolor sit amet.',
@@ -61,7 +65,7 @@ const recipes = [
   },
   {
     title: 'Fish for Lunch',
-    href: 'RmlzaCBmb3IgTHVuY2g=',
+    id: 'RmlzaCBmb3IgTHVuY2g=',
     category: { name: 'Seafood', href: '#' },
     description:
       'Lorem ipsum dolor sit amet ipsum dolor sit amet ipsum dolor sit amet.',
@@ -77,8 +81,8 @@ const recipes = [
     },
   },
   {
-    title: 'Fish for Lunch',
-    href: '#',
+    title: 'Fish for Lunch 2',
+    id: '1',
     category: { name: 'Seafood', href: '#' },
     description:
       'Lorem ipsum dolor sit amet ipsum dolor sit amet ipsum dolor sit amet.',
@@ -94,8 +98,8 @@ const recipes = [
     },
   },
   {
-    title: 'Veggie Salad Bowl',
-    href: '#',
+    title: 'Veggie Salad Bowl 2',
+    id: '2',
     category: { name: 'Veggie', href: '#' },
     description:
       'Lorem ipsum dolor sit amet ipsum dolor sit amet ipsum dolor sit amet.',
@@ -111,8 +115,8 @@ const recipes = [
     },
   },
   {
-    title: 'Beef with Dijon Mustard',
-    href: '#',
+    title: 'Beef with Dijon Mustard 2',
+    id: '3',
     category: { name: 'Protein', href: '#' },
     description:
       'Lorem ipsum dolor sit amet ipsum dolor sit amet ipsum dolor sit amet.',
@@ -133,7 +137,7 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 
-/** Tabs Component */
+/** Weekly Menu Component */
 const tabs = [
   { name: 'Week 01', href: '#', current: true },
   { name: 'Week 02', href: '#', current: false },
@@ -141,8 +145,7 @@ const tabs = [
   { name: 'Week 04', href: '#', current: false },
   { name: 'Week 05', href: '#', current: false },
 ]
-
-export function Tabs() {
+function Tabs() {
   return (
     <div id="weeks">
       <div className="sm:hidden">
@@ -192,6 +195,193 @@ export function Tabs() {
         </nav>
       </div>
     </div>
+  )
+}
+
+/** Heading for Recipe Section */
+function RecipeHeading() {
+  return (
+    <div className="pb-5 border-b border-gray-200 sm:flex sm:items-center sm:justify-between">
+      <h3 className="text-2xl leading-6 font-medium text-gray-900">Recipes</h3>
+      <div className="mt-3 sm:mt-0 sm:ml-4">
+        <Link href="/recipe/new" passHref>
+          <button
+            type="button"
+            className="inline-flex place-self-end items-center px-3.5 py-2 border border-transparent text-sm leading-4 font-medium rounded-full shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+          >
+            <PlusIcon className="-ml-1 mr-2 h-5 w-5" aria-hidden="true" />
+            New Recipe
+          </button>
+        </Link>
+      </div>
+    </div>
+  )
+}
+
+/** Recipes Component */
+function Recipes() {
+  const deleteRecipe = (recipe) => {
+    const { id, title } = recipe
+    toast(
+      () => (
+        <span>
+          Recipe <b>{title}</b> deleted!
+          <br />
+          ID: <b>{id}</b>
+        </span>
+      ),
+      {
+        icon: <CheckCircleIcon className="h-6 w-6 text-green-500" />,
+      }
+    )
+  }
+
+  return (
+    <div className="relative pb-16 px-4 sm:px-6 lg:px-8">
+      <div className="absolute inset-0">
+        <div className="bg-white h-1/3 sm:h-2/3" />
+      </div>
+      <div className="relative max-w-7xl mx-auto">
+        <div
+          id="recipes"
+          className="mt-12 max-w-lg mx-auto grid gap-5 lg:grid-cols-3 lg:max-w-none"
+        >
+          {recipes.slice(0, 5).map((recipe) => (
+            <div
+              key={recipe.title}
+              className="flex flex-col rounded-lg shadow-lg overflow-hidden"
+            >
+              <button
+                className="absolute -m-3 bg-red-500 rounded-full flex align-middle p-2 text-sm"
+                onClick={() => deleteRecipe(recipe)}
+              >
+                <TrashIcon className="h-4 w-4 text-white" aria-hidden="true" />
+              </button>
+
+              <div className="flex-shrink-0">
+                <img
+                  className="h-48 w-full object-cover"
+                  src={recipe.imageUrl}
+                  alt="Recipe Image"
+                />
+              </div>
+              <div className="flex-1 bg-white p-6 flex flex-col justify-between">
+                <div className="flex-1">
+                  <div className="mb-2 flex items-center">
+                    <div className="flex-shrink-0 flex">
+                      <StarIcon
+                        className="h-6 w-6 fill-current text-yellow-500"
+                        aria-hidden="true"
+                      />
+                      <StarIcon
+                        className="h-6 w-6 fill-current text-yellow-500"
+                        aria-hidden="true"
+                      />
+                      <StarIcon
+                        className="h-6 w-6 fill-current text-yellow-500"
+                        aria-hidden="true"
+                      />
+                      <StarIcon
+                        className="h-6 w-6 text-yellow-500"
+                        aria-hidden="true"
+                      />
+                      <StarIcon
+                        className="h-6 w-6 text-yellow-500"
+                        aria-hidden="true"
+                      />
+                    </div>
+                  </div>
+                  <div className="flex justify-between">
+                    <p className="text-sm font-medium text-indigo-600">
+                      {recipe.category.name}
+                    </p>
+                    {recipe.isActive ? (
+                      <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                        Active
+                      </span>
+                    ) : (
+                      <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800">
+                        Disabled
+                      </span>
+                    )}
+                  </div>
+                  <div className="block mt-2">
+                    <p className="text-xl font-semibold text-gray-900">
+                      {recipe.title}
+                    </p>
+                    <p className="mt-3 text-base text-gray-500">
+                      {recipe.description}
+                    </p>
+                  </div>
+                </div>
+                <div className="mt-3 flex items-center">
+                  <div className="flex-shrink-0">
+                    <UserGroupIcon className="h-6 w-6" aria-hidden="true" />
+                  </div>
+                  <div className="ml-3">
+                    <p className="text-sm font-medium text-gray-900">
+                      <span>{recipe.orderedTotal} Users Ordered</span>
+                    </p>
+                  </div>
+                </div>
+                <div className="mt-6 flex items-center">
+                  <Link href={`/recipe/${recipe.id}`}>
+                    <a className="w-full">
+                      <button
+                        type="button"
+                        className="inline-flex items-center px-3 py-2 w-full justify-center border border-transparent shadow-sm text-sm leading-4 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                      >
+                        <PencilIcon
+                          className="-ml-0.5 mr-2 h-4 w-4"
+                          aria-hidden="true"
+                        />
+                        Edit Recipe
+                      </button>
+                    </a>
+                  </Link>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  )
+}
+
+/**
+ * TODO: Add logic to paginate the Recipes
+ *
+ * Pagination Component for Recipe
+ */
+function Pagination() {
+  return (
+    <nav
+      className="bg-white px-4 py-3 flex items-center justify-between border-t border-gray-200 sm:px-6"
+      aria-label="Pagination"
+    >
+      <div className="hidden sm:block">
+        <p className="text-sm text-gray-700">
+          Showing <span className="font-medium">1</span> to{' '}
+          <span className="font-medium">5</span> of{' '}
+          <span className="font-medium">20</span> results
+        </p>
+      </div>
+      <div className="flex-1 flex justify-between sm:justify-end">
+        <a
+          href="#"
+          className="relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50"
+        >
+          Previous
+        </a>
+        <a
+          href="#"
+          className="ml-3 relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50"
+        >
+          Next
+        </a>
+      </div>
+    </nav>
   )
 }
 
@@ -264,7 +454,7 @@ export default function Home() {
                               </Menu.Item>
                               <Menu.Item>
                                 {({ active }) => (
-                                  <Link href="/signout">
+                                  <Link href="/signin">
                                     <a
                                       className={classNames(
                                         active ? 'bg-gray-100' : '',
@@ -284,10 +474,7 @@ export default function Home() {
                   </div>
 
                   {/* Space */}
-                  <div className="flex-1 min-w-0 px-12 py-6 lg:hidden">
-                    {/* <div className="max-w-xs w-full mx-auto">
-                    </div> */}
-                  </div>
+                  <div className="flex-1 min-w-0 px-12 py-6 lg:hidden"></div>
 
                   {/* Menu button */}
                   <div className="absolute right-0 flex-shrink-0 lg:hidden">
@@ -412,7 +599,7 @@ export default function Home() {
                               <img
                                 className="h-10 w-10 rounded-full"
                                 src={user.imageUrl}
-                                alt=""
+                                alt="User Profile Image"
                               />
                             </div>
                             <div className="ml-3 min-w-0 flex-1">
@@ -432,7 +619,7 @@ export default function Home() {
                                 Your Profile
                               </a>
                             </Link>
-                            <Link href="/signout">
+                            <Link href="/signin">
                               <a className="block rounded-md px-3 py-2 text-base text-gray-900 font-medium hover:bg-gray-100 hover:text-gray-800">
                                 Sign out
                               </a>
@@ -455,125 +642,12 @@ export default function Home() {
               {/* Main column */}
               <div className="grid grid-cols-1 gap-4 lg:col-span-2">
                 <section aria-labelledby="section-1-title">
-                  <div className="rounded-lg bg-white overflow-hidden shadow">
-                    <div className="p-6">
-                      <section className="relative pb-16 px-4 sm:px-6  lg:px-8">
-                        <div className="absolute inset-0">
-                          <div className="bg-white h-1/3 sm:h-2/3" />
-                        </div>
-                        <div className="relative max-w-7xl mx-auto">
-                          <Tabs></Tabs>
-                          <div
-                            id="recipes"
-                            className="mt-12 max-w-lg mx-auto grid gap-5 lg:grid-cols-3 lg:max-w-none"
-                          >
-                            {recipes.map((recipe) => (
-                              <div
-                                key={recipe.title}
-                                className="flex flex-col rounded-lg shadow-lg overflow-hidden"
-                              >
-                                <div className="flex-shrink-0">
-                                  <img
-                                    className="h-48 w-full object-cover"
-                                    src={recipe.imageUrl}
-                                    alt="Recipe Image"
-                                  />
-                                </div>
-                                <div className="flex-1 bg-white p-6 flex flex-col justify-between">
-                                  <div className="flex-1">
-                                    <div className="mb-2 flex items-center">
-                                      <div className="flex-shrink-0 flex">
-                                        <StarIcon
-                                          className="h-6 w-6 fill-current text-yellow-500"
-                                          aria-hidden="true"
-                                        />
-                                        <StarIcon
-                                          className="h-6 w-6 fill-current text-yellow-500"
-                                          aria-hidden="true"
-                                        />
-                                        <StarIcon
-                                          className="h-6 w-6 fill-current text-yellow-500"
-                                          aria-hidden="true"
-                                        />
-                                        <StarIcon
-                                          className="h-6 w-6 text-yellow-500"
-                                          aria-hidden="true"
-                                        />
-                                        <StarIcon
-                                          className="h-6 w-6 text-yellow-500"
-                                          aria-hidden="true"
-                                        />
-                                      </div>
-                                    </div>
-                                    <div className="flex justify-between">
-                                      <p className="text-sm font-medium text-indigo-600">
-                                        <a
-                                          href={recipe.category.href}
-                                          className="hover:underline"
-                                        >
-                                          {recipe.category.name}
-                                        </a>
-                                      </p>
-                                      {recipe.isActive ? (
-                                        <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
-                                          Active
-                                        </span>
-                                      ) : (
-                                        <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800">
-                                          Disabled
-                                        </span>
-                                      )}
-                                    </div>
-                                    <a
-                                      href={recipe.href}
-                                      className="block mt-2"
-                                    >
-                                      <p className="text-xl font-semibold text-gray-900">
-                                        {recipe.title}
-                                      </p>
-                                      <p className="mt-3 text-base text-gray-500">
-                                        {recipe.description}
-                                      </p>
-                                    </a>
-                                  </div>
-                                  <div className="mt-3 flex items-center">
-                                    <div className="flex-shrink-0">
-                                      <UserGroupIcon
-                                        className="h-6 w-6"
-                                        aria-hidden="true"
-                                      />
-                                    </div>
-                                    <div className="ml-3">
-                                      <p className="text-sm font-medium text-gray-900">
-                                        <span>
-                                          {recipe.orderedTotal} Users Ordered
-                                        </span>
-                                      </p>
-                                    </div>
-                                  </div>
-                                  <div className="mt-6 flex items-center">
-                                    <Link href={`/recipe/${recipe.href}`}>
-                                      <a className="w-full">
-                                        <button
-                                          type="button"
-                                          className="inline-flex items-center px-3 py-2 w-full justify-center border border-transparent shadow-sm text-sm leading-4 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                                        >
-                                          <PencilIcon
-                                            className="-ml-0.5 mr-2 h-4 w-4"
-                                            aria-hidden="true"
-                                          />
-                                          Edit Recipe
-                                        </button>
-                                      </a>
-                                    </Link>
-                                  </div>
-                                </div>
-                              </div>
-                            ))}
-                          </div>
-                        </div>
-                      </section>
-                    </div>
+                  <div className="rounded-lg bg-white overflow-hidden shadow p-6">
+                    <RecipeHeading />
+
+                    <Recipes />
+
+                    <Pagination />
                   </div>
                 </section>
               </div>
