@@ -20,9 +20,8 @@ const user = {
   imageUrl: '/images/profile/uid-UmVuYW4gU2lnb2xv.webp',
 }
 const navLinks = [
-  { active: true, title: 'All Recipes', urlPath: '/' },
-  { active: false, title: 'Weekly Menu', urlPath: '/' },
-  { active: false, title: 'Manage Both', urlPath: '/' },
+  { id: 1, active: true, title: 'All Recipes', path: '#recipes' },
+  { id: 2, active: false, title: 'Weekly Menu', path: '#weeks' },
 ]
 
 const recipes = [
@@ -145,7 +144,7 @@ const tabs = [
 
 export function Tabs() {
   return (
-    <div>
+    <div id="weeks">
       <div className="sm:hidden">
         <label htmlFor="tabs" className="sr-only">
           Select a tab
@@ -315,7 +314,7 @@ export default function Home() {
                           aria-hidden="true"
                         />
                         {navLinks.map((link) => (
-                          <Link href="#">
+                          <Link href={link.path} key={link.id}>
                             <a
                               key={link.title}
                               className={classNames(
@@ -464,7 +463,10 @@ export default function Home() {
                         </div>
                         <div className="relative max-w-7xl mx-auto">
                           <Tabs></Tabs>
-                          <div className="mt-12 max-w-lg mx-auto grid gap-5 lg:grid-cols-3 lg:max-w-none">
+                          <div
+                            id="recipes"
+                            className="mt-12 max-w-lg mx-auto grid gap-5 lg:grid-cols-3 lg:max-w-none"
+                          >
                             {recipes.map((recipe) => (
                               <div
                                 key={recipe.title}
