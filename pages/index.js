@@ -3,17 +3,21 @@ import {
   BeakerIcon,
   MenuIcon,
   PencilIcon,
-  StarIcon,
-  UserGroupIcon,
   PlusIcon,
+  StarIcon,
   TrashIcon,
+  UserGroupIcon,
   XIcon,
 } from '@heroicons/react/outline'
-import { MinusSmIcon, CheckCircleIcon } from '@heroicons/react/solid'
+import { CheckCircleIcon } from '@heroicons/react/solid'
+import axios from 'axios'
 import Head from 'next/head'
 import Link from 'next/link'
-import { Fragment } from 'react'
+import { Fragment, useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
+
+/** Set the default API URL to use when making requests with axios */
+axios.defaults.baseURL = process.env.NEXT_PUBLIC_API_URL
 
 const user = {
   userId: 'UmVuYW4gU2lnb2xv', // UserId is the name converted to Base64
@@ -23,114 +27,10 @@ const user = {
   role: 'Future Hello Fresh Software Engineer',
   imageUrl: '/images/profile/uid-UmVuYW4gU2lnb2xv.webp',
 }
+
 const navLinks = [
   { id: 1, active: true, title: 'All Recipes', path: '#recipes' },
-  { id: 2, active: false, title: 'Weekly Menu', path: '#weeks' },
-]
-
-const recipes = [
-  {
-    title: 'Beef with Dijon Mustard',
-    id: 'QmVlZiB3aXRoIERpam9uIE11c3RhcmQ=',
-    category: { name: 'Protein', href: '#' },
-    description:
-      'Lorem ipsum dolor sit amet ipsum dolor sit amet ipsum dolor sit amet.',
-    date: 'Mar 16, 2020',
-    datetime: '2020-03-16',
-    isActive: true,
-    imageUrl: '/images/recipe/photo-1504674900247-0877df9cc836.webp',
-    cookingTime: '6 min',
-    orderedTotal: '600',
-    author: {
-      name: 'Roel Aufderehar',
-      href: '#',
-    },
-  },
-  {
-    title: 'Veggie Salad Bowl',
-    id: 'VmVnZ2llIFNhbGFkIEJvd2w=',
-    category: { name: 'Veggie', href: '#' },
-    description:
-      'Lorem ipsum dolor sit amet ipsum dolor sit amet ipsum dolor sit amet.',
-    date: 'Mar 10, 2020',
-    datetime: '2020-03-10',
-    isActive: false,
-    imageUrl: '/images/recipe/photo-1512621776951-a57141f2eefd.webp',
-    cookingTime: '4 min',
-    orderedTotal: '700',
-    author: {
-      name: 'Brenna Goyette',
-      href: '#',
-    },
-  },
-  {
-    title: 'Fish for Lunch',
-    id: 'RmlzaCBmb3IgTHVuY2g=',
-    category: { name: 'Seafood', href: '#' },
-    description:
-      'Lorem ipsum dolor sit amet ipsum dolor sit amet ipsum dolor sit amet.',
-    date: 'Feb 12, 2020',
-    datetime: '2020-02-12',
-    isActive: true,
-    imageUrl: '/images/recipe/photo-1476224203421-9ac39bcb3327.webp',
-    cookingTime: '11 min',
-    orderedTotal: '1200',
-    author: {
-      name: 'Daniela Metz',
-      href: '#',
-    },
-  },
-  {
-    title: 'Fish for Lunch 2',
-    id: '1',
-    category: { name: 'Seafood', href: '#' },
-    description:
-      'Lorem ipsum dolor sit amet ipsum dolor sit amet ipsum dolor sit amet.',
-    date: 'Feb 12, 2020',
-    datetime: '2020-02-12',
-    isActive: false,
-    imageUrl: '/images/recipe/photo-1476224203421-9ac39bcb3327.webp',
-    cookingTime: '11 min',
-    orderedTotal: '1200',
-    author: {
-      name: 'Daniela Metz',
-      href: '#',
-    },
-  },
-  {
-    title: 'Veggie Salad Bowl 2',
-    id: '2',
-    category: { name: 'Veggie', href: '#' },
-    description:
-      'Lorem ipsum dolor sit amet ipsum dolor sit amet ipsum dolor sit amet.',
-    date: 'Mar 10, 2020',
-    datetime: '2020-03-10',
-    isActive: true,
-    imageUrl: '/images/recipe/photo-1512621776951-a57141f2eefd.webp',
-    cookingTime: '4 min',
-    orderedTotal: '700',
-    author: {
-      name: 'Brenna Goyette',
-      href: '#',
-    },
-  },
-  {
-    title: 'Beef with Dijon Mustard 2',
-    id: '3',
-    category: { name: 'Protein', href: '#' },
-    description:
-      'Lorem ipsum dolor sit amet ipsum dolor sit amet ipsum dolor sit amet.',
-    date: 'Mar 16, 2020',
-    datetime: '2020-03-16',
-    isActive: true,
-    imageUrl: '/images/recipe/photo-1504674900247-0877df9cc836.webp',
-    cookingTime: '6 min',
-    orderedTotal: '600',
-    author: {
-      name: 'Roel Aufderehar',
-      href: '#',
-    },
-  },
+  { id: 2, active: false, title: 'Weekly Menu', path: '#weekly-menu' },
 ]
 
 function classNames(...classes) {
@@ -147,7 +47,7 @@ const tabs = [
 ]
 function Tabs() {
   return (
-    <div id="weeks">
+    <div id="weeks" className="mt-5">
       <div className="sm:hidden">
         <label htmlFor="tabs" className="sr-only">
           Select a tab
@@ -198,30 +98,12 @@ function Tabs() {
   )
 }
 
-/** Heading for Recipe Section */
-function RecipeHeading() {
-  return (
-    <div className="pb-5 border-b border-gray-200 sm:flex sm:items-center sm:justify-between">
-      <h3 className="text-2xl leading-6 font-medium text-gray-900">Recipes</h3>
-      <div className="mt-3 sm:mt-0 sm:ml-4">
-        <Link href="/recipe/new" passHref>
-          <button
-            type="button"
-            className="inline-flex place-self-end items-center px-3.5 py-2 border border-transparent text-sm leading-4 font-medium rounded-full shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-          >
-            <PlusIcon className="-ml-1 mr-2 h-5 w-5" aria-hidden="true" />
-            New Recipe
-          </button>
-        </Link>
-      </div>
-    </div>
-  )
-}
-
 function SectionHeading({ title }) {
   return (
     <div className="pb-5 border-b border-gray-200 sm:flex sm:items-center sm:justify-between">
-      <h3 className="text-2xl leading-6 font-medium text-gray-900">{title}</h3>
+      <h3 className="text-2xl leading-6 font-medium text-gray-900">
+        {title === 'Recipe' ? title + 's' : title}
+      </h3>
       <div className="mt-3 sm:mt-0 sm:ml-4">
         <Link
           href={`/${title.toLowerCase().replace(/\s+/g, '-')}/new`}
@@ -232,7 +114,7 @@ function SectionHeading({ title }) {
             className="inline-flex place-self-end items-center px-3.5 py-2 border border-transparent text-sm leading-4 font-medium rounded-full shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
           >
             <PlusIcon className="-ml-1 mr-2 h-5 w-5" aria-hidden="true" />
-            {title}
+            New {title}
           </button>
         </Link>
       </div>
@@ -242,21 +124,110 @@ function SectionHeading({ title }) {
 
 /** Recipes Component */
 function Recipes() {
+  // Data Model
+  // let recipes = [
+  //   {
+  //     createdAt: Date.now(),
+  //     id: 'QmVlZiB3aXRoIERpam9uIE11c3RhcmQ=',
+  //     name: 'Beef with Dijon Mustard',
+  //     headline: 'Lorem ipsum dolor sit amet',
+  //     imageUrl: '/images/recipe/photo-1504674900247-0877df9cc836.webp',
+  //     link: 'hf.renansigolo.com/recipe/{id}',
+  //     isActive: true,
+  //     totalOrdered: 600,
+  //     rating: 2,
+  //     nutrition: [
+  //       {
+  //         name: 'Fat',
+  //         amount: 19.9,
+  //         unit: 'g',
+  //       },
+  //       {
+  //         amount: 39.6,
+  //         name: 'Protein',
+  //         unit: 'g',
+  //       },
+  //       {
+  //         amount: 388,
+  //         name: 'Sodium',
+  //         type: '57b42a48b7e8697d4b30530b',
+  //         unit: 'mg',
+  //       },
+  //     ],
+  //     ingredients: [
+  //       {
+  //         id: '5fae01355a2ab9306616d5b0',
+  //         name: 'potato',
+  //         description: null,
+  //         imageLink:
+  //           'https://d3hvwccx09j84u.cloudfront.net/200,200/ingredient/5fae01355a2ab9306616d5b0-a7aba26d.png',
+  //         allergens: [],
+  //       },
+  //     ],
+  //     steps: [
+  //       {
+  //         imageUrl: '',
+  //         index: 1,
+  //         ingredients: [],
+  //         instruction:
+  //           'Preheat the oven to 240°C/220°C fan-forced. Cut\nthe potato into large chunks and place on a lined\noven tray. Add the turmeric (see ingredients),\nbrown mustard seeds and a drizzle of olive oil.\nSeason with salt and pepper. Toss to coat, then\nbake until tender, 20-25 minutes.',
+  //       },
+  //     ],
+  //     author: {
+  //       name: 'Roel Aufderehar',
+  //       href: '#',
+  //     },
+  //   },
+  // ]
+
+  /**
+   * Retrieves the data from the API
+   */
+  const fetchData = () => {
+    axios.get('/recipes').then((response) => {
+      setRecipes(response.data)
+    })
+  }
+
+  /** Use React States to GET the data from the API */
+  const [recipes, setRecipes] = useState()
+  useEffect(() => {
+    fetchData()
+  }, [])
+
+  /**
+   * Delete a recipe on the Backend
+   * @param {string} recipe
+   */
   const deleteRecipe = (recipe) => {
     const { id, title } = recipe
-    toast(
-      () => (
-        <span>
-          Recipe <b>{title}</b> deleted!
-          <br />
-          ID: <b>{id}</b>
-        </span>
-      ),
-      {
-        icon: <CheckCircleIcon className="h-6 w-6 text-green-500" />,
-      }
-    )
+    axios
+      .delete(`/recipes/${id}`)
+      .then((res) => {
+        console.log('🚀 ~ res', res)
+        toast(
+          () => (
+            <span>
+              Recipe <b>{title}</b> deleted!
+              <br />
+              ID: <b>{id}</b>
+            </span>
+          ),
+          {
+            icon: <CheckCircleIcon className="h-6 w-6 text-green-500" />,
+          }
+        )
+      })
+      .then(() => {
+        // Request a new data fetch to update the UI
+        fetchData()
+      })
+      .catch((err) => {
+        console.log('🚀 ~ deleteRecipe ~ err', err)
+      })
   }
+
+  if (!recipes) return null
 
   return (
     <div className="relative pb-16 px-4 sm:px-6 lg:px-8">
@@ -264,13 +235,10 @@ function Recipes() {
         <div className="bg-white h-1/3 sm:h-2/3" />
       </div>
       <div className="relative max-w-7xl mx-auto">
-        <div
-          id="recipes"
-          className="mt-12 max-w-lg mx-auto grid gap-5 lg:grid-cols-3 lg:max-w-none"
-        >
+        <div className="mt-12 max-w-lg mx-auto grid gap-5 lg:grid-cols-3 lg:max-w-none">
           {recipes.slice(0, 5).map((recipe) => (
             <div
-              key={recipe.title}
+              key={recipe.id}
               className="flex flex-col rounded-lg shadow-lg overflow-hidden"
             >
               <button
@@ -283,7 +251,7 @@ function Recipes() {
               <div className="flex-shrink-0">
                 <img
                   className="h-48 w-full object-cover"
-                  src={recipe.imageUrl}
+                  src={recipe.imageURL}
                   alt="Recipe Image"
                 />
               </div>
@@ -315,7 +283,7 @@ function Recipes() {
                   </div>
                   <div className="flex justify-between">
                     <p className="text-sm font-medium text-indigo-600">
-                      {recipe.category.name}
+                      {recipe.name}
                     </p>
                     {recipe.isActive ? (
                       <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
@@ -329,10 +297,10 @@ function Recipes() {
                   </div>
                   <div className="block mt-2">
                     <p className="text-xl font-semibold text-gray-900">
-                      {recipe.title}
+                      {recipe.name}
                     </p>
                     <p className="mt-3 text-base text-gray-500">
-                      {recipe.description}
+                      {recipe.headline}
                     </p>
                   </div>
                 </div>
@@ -342,7 +310,7 @@ function Recipes() {
                   </div>
                   <div className="ml-3">
                     <p className="text-sm font-medium text-gray-900">
-                      <span>{recipe.orderedTotal} Users Ordered</span>
+                      <span>{recipe.totalOrdered} Users Ordered</span>
                     </p>
                   </div>
                 </div>
@@ -591,27 +559,21 @@ export default function Home() {
                             </div>
                           </div>
                           <div className="mt-3 px-2 space-y-1">
-                            <Link href="#">
+                            <Link href="/">
                               <a className="block rounded-md px-3 py-2 text-base text-gray-900 font-medium hover:bg-gray-100 hover:text-gray-800">
                                 Home
                               </a>
                             </Link>
-                            <Link href="#">
+                            <Link href="#recipes">
                               <a className="block rounded-md px-3 py-2 text-base text-gray-900 font-medium hover:bg-gray-100 hover:text-gray-800">
                                 All Recipes
                               </a>
                             </Link>
                             <a
-                              href="#"
+                              href="#weekly-menu"
                               className="block rounded-md px-3 py-2 text-base text-gray-900 font-medium hover:bg-gray-100 hover:text-gray-800"
                             >
                               Weekly Menu
-                            </a>
-                            <a
-                              href="#"
-                              className="block rounded-md px-3 py-2 text-base text-gray-900 font-medium hover:bg-gray-100 hover:text-gray-800"
-                            >
-                              Protein Rich
                             </a>
                           </div>
                         </div>
@@ -657,15 +619,17 @@ export default function Home() {
           )}
         </Popover>
         <main className="-mt-24 pb-8 min-h-full">
-          <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:max-w-7xl lg:px-8">
+          {/* Recipes Section */}
+          <div
+            id="recipes"
+            className="max-w-3xl mx-auto px-4 sm:px-6 lg:max-w-7xl lg:px-8"
+          >
             <h1 className="sr-only">Recipes Section</h1>
-            {/* Main grid */}
             <div className="grid grid-cols-1 gap-4 items-start lg:gap-8">
-              {/* Main column */}
               <div className="grid grid-cols-1 gap-4 lg:col-span-2">
                 <section aria-labelledby="recipes-section">
                   <div className="rounded-lg bg-white overflow-hidden shadow p-6">
-                    <RecipeHeading />
+                    <SectionHeading title="Recipe" />
 
                     <Recipes />
 
@@ -676,19 +640,24 @@ export default function Home() {
             </div>
           </div>
 
+          {/* Spacer */}
           <div className="relative py-10"></div>
 
-          <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:max-w-7xl lg:px-8">
+          {/* Weekly Menu Section */}
+          <div
+            id="weekly-menu"
+            className="max-w-3xl mx-auto px-4 sm:px-6 lg:max-w-7xl lg:px-8"
+          >
             <h1 className="sr-only">Weekly Menu Section</h1>
-            {/* Main grid */}
             <div className="grid grid-cols-1 gap-4 items-start lg:gap-8">
-              {/* Main column */}
               <div className="grid grid-cols-1 gap-4 lg:col-span-2">
                 <section aria-labelledby="recipes-section">
                   <div className="rounded-lg bg-white overflow-hidden shadow p-6">
                     <SectionHeading title="Weekly Menu" />
 
-                    <Recipes />
+                    <Tabs />
+
+                    <h2 className="text-center my-5">TODO: Weekly Menu</h2>
 
                     <Pagination />
                   </div>
