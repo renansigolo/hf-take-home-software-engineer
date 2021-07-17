@@ -15,6 +15,7 @@ import Head from 'next/head'
 import Link from 'next/link'
 import { Fragment, useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
+import Footer from '../components/Footer'
 
 /** Set the default API URL to use when making requests with axios */
 axios.defaults.baseURL = process.env.NEXT_PUBLIC_API_URL
@@ -379,7 +380,7 @@ export default function Home() {
   return (
     <div>
       <Head>
-        <title>Hello Fresh - [PAGE_NAME]</title>
+        <title>Hello Fresh</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
@@ -668,14 +669,7 @@ export default function Home() {
         </main>
       </div>
 
-      <footer className="flex items-center justify-center w-full h-24 border-t">
-        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 lg:max-w-7xl">
-          <div className="py-8 text-sm text-gray-500 text-center sm:text-left">
-            <span className="block sm:inline">&copy; 2021 Hello Fresh.</span>{' '}
-            <span className="block sm:inline">All rights reserved.</span>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </div>
   )
 }

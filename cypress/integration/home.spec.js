@@ -3,9 +3,7 @@ context('Navigation Pages', () => {
     cy.visit('/')
   })
 
-  it('has loaded the home page', () => {
-    cy.contains(
-      'The first app with cognitive analysis for people with ADHD!'
-    ).should('be.visible')
+  it('has loaded the footer', () => {
+    cy.get('[data-test=footer]').should('be.visible')
   })
 })
