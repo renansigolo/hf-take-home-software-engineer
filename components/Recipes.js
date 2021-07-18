@@ -13,7 +13,6 @@ import SectionFooter from './SectionFooter'
 
 /** Recipes Component */
 export default function Recipes() {
-  // let recipesShowing = 10
   /**
    * Retrieves the data from the API
    */
@@ -91,6 +90,7 @@ export default function Recipes() {
               </div>
               <div className="flex-1 bg-white p-6 flex flex-col justify-between">
                 <div className="flex-1">
+                  {/* TODO: Add dynamic logic to render the stars based on the ratings */}
                   {/* <div className="mb-2 flex items-center">
                     <div className="flex-shrink-0 flex">
                       <StarIcon

@@ -1,5 +1,4 @@
 import axios from 'axios'
-// import Link from 'next/link'
 import { PlusIcon } from '@heroicons/react/outline'
 import toast from 'react-hot-toast'
 import Faker from 'faker'
@@ -45,10 +44,6 @@ export default function SectionHeading({ title }) {
         {title === 'Recipe' ? title + 's' : title}
       </h3>
       <div className="mt-3 sm:mt-0 sm:ml-4">
-        {/* <Link
-          href={`/${title.toLowerCase().replace(/\s+/g, '-')}/new`}
-          passHref
-        > */}
         <button
           onClick={createRecipe}
           type="button"
@@ -57,7 +52,6 @@ export default function SectionHeading({ title }) {
           <PlusIcon className="-ml-1 mr-2 h-5 w-5" aria-hidden="true" />
           New {title}
         </button>
-        {/* </Link> */}
       </div>
     </div>
   )

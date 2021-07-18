@@ -20,7 +20,7 @@ To test the application locally run
 npm run all
 ```
 
-### Testing
+## Testing
 
 Running tests with Cypress is easy as running
 
@@ -36,7 +36,9 @@ npm run build
 npm start
 ```
 
-### Deploying
+> A Postman collection is also available to test the app against the local environment
+
+## Deploying
 
 To deploy the application just push the code to github and a new environment will be automatically created by vercel and an integrated CI will test the code with cypress for eventual errors.
 

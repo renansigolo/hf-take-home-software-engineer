@@ -35,7 +35,7 @@ context('Home Page', () => {
         'link',
         'isActive',
         'totalOrdered',
-        'rating',
+        'rating'
         // 'nutrition',
         // 'ingredients',
         // 'steps',

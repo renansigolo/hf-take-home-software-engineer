@@ -233,8 +233,6 @@ export default function Header() {
                           </div>
                         </div>
                         <div className="mt-3 px-2 space-y-1">
-                          {/* encodeURIComponent is used in the example to keep the path utf-8 compatible.
-                            <Link href={`/profile/${encodeURIComponent(user.userId)}`}> */}
                           <Link href={`/profile/${user.userId}`}>
                             <a className="block rounded-md px-3 py-2 text-base text-gray-900 font-medium hover:bg-gray-100 hover:text-gray-800">
                               Your Profile

@@ -1,6 +1,5 @@
-"use strict";
 // Import mongoose
-const mongoose = require("mongoose");
+const mongoose = require('mongoose')
 
 // Create Schema Instance and add schema propertise
 const RecipeSchema = new mongoose.Schema({
@@ -30,12 +29,12 @@ const RecipeSchema = new mongoose.Schema({
   // nutrition: {},
   // ingredients: {},
   // steps: {},
-});
+})
 
 // automatically generate createdAt and updatedAt fields for your document
-RecipeSchema.set("timestamp", true);
+RecipeSchema.set('timestamp', true)
 
 // create and export model
-const Recipe = mongoose.model("Recipe", RecipeSchema);
+const Recipe = mongoose.model('Recipe', RecipeSchema)
 
-module.exports = Recipe;
+module.exports = Recipe
