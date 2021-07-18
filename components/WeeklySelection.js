@@ -1,3 +1,5 @@
+import Recipes from './Recipes'
+
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
@@ -58,6 +60,9 @@ export default function Tabs() {
             </a>
           ))}
         </nav>
+      </div>
+      <div>
+        <Recipes />
       </div>
     </div>
   )

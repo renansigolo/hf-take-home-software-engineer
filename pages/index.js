@@ -6,7 +6,6 @@ import Recipes from '../components/Recipes'
 import SectionHeading from '../components/SectionHeading'
 import SectionLayout from '../components/SectionLayout'
 import Tabs from '../components/WeeklySelection'
-import SignIn from './signin'
 
 /** Set the default API URL to use when making requests with axios */
 axios.defaults.baseURL = process.env.NEXT_PUBLIC_API_URL

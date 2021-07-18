@@ -1,5 +1,5 @@
 {
-  "name": "hf-take-home-frontend",
+  "name": "hf-take-home",
   "version": "0.0.1",
   "description": "Frontend for Take Home Application",
   "license": "MIT",
@@ -19,12 +19,15 @@
     "clean": "rm -rf package-lock.json node_modules .next",
     "cypress:open": "cypress open",
     "cypress:run": "cypress run",
+    "all": "concurrently npm:backend npm:frontend",
+    "frontend": "next dev",
+    "backend": "node backend/server.js",
     "dev": "next dev",
     "fix": "next lint --fix .",
     "lint": "eslint .",
     "format": "prettier '**/*' --write --ignore-unknown",
     "start": "next start",
-    "test": "npm run build && concurrently -k npm:start npm:cypress:run"
+    "test": "npm run build && concurrently -k npm:backend npm:start npm:cypress:run"
   },
   "dependencies": {
     "@headlessui/react": "^1.3.0",
@@ -33,16 +36,19 @@
     "axios": "^0.21.1",
     "axios-hooks": "^2.6.3",
     "concurrently": "^6.2.0",
-    "next": "latest",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "mongoose": "^5.13.3",
+    "next": "11.0.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-hot-toast": "^2.0.0"
   },
   "devDependencies": {
-    "autoprefixer": "^10.2.6",
+    "autoprefixer": "^10.3.1",
     "cypress": "^7.7.0",
     "dotenv": "^10.0.0",
-    "eslint": "^7.30.0",
+    "eslint": "^7.31.0",
     "eslint-config-next": "^11.0.1",
     "eslint-config-prettier": "^8.3.0",
     "faker": "^5.5.3",
