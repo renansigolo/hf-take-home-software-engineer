@@ -4,7 +4,7 @@ import Link from 'next/link'
 /**
  * Markup for routes to be done
  * @param {string} title
- * @returns 
+ * @returns
  */
 export default function RouteTemplate({ title }) {
   return (
