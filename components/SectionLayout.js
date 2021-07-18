@@ -44,7 +44,7 @@ export default function SectionLayout(props) {
             <div className="rounded-lg bg-white overflow-hidden shadow p-6">
               {props.heading}
 
-              <Recipes />
+              {props.content}
 
               <Pagination />
             </div>

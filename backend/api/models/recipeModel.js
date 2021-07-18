@@ -12,7 +12,7 @@ const RecipeSchema = new mongoose.Schema({
   headline: {
     type: String,
   },
-  imageURL: {
+  imageUrl: {
     type: String,
   },
   link: {

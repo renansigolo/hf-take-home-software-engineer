@@ -12,62 +12,6 @@ import toast from 'react-hot-toast'
 
 /** Recipes Component */
 export default function Recipes() {
-  // Data Model
-  // let recipes = [
-  //   {
-  //     createdAt: Date.now(),
-  //     id: 'QmVlZiB3aXRoIERpam9uIE11c3RhcmQ=',
-  //     name: 'Beef with Dijon Mustard',
-  //     headline: 'Lorem ipsum dolor sit amet',
-  //     imageUrl: '/images/recipe/photo-1504674900247-0877df9cc836.webp',
-  //     link: 'hf.renansigolo.com/recipe/{id}',
-  //     isActive: true,
-  //     totalOrdered: 600,
-  //     rating: 2,
-  //     nutrition: [
-  //       {
-  //         name: 'Fat',
-  //         amount: 19.9,
-  //         unit: 'g',
-  //       },
-  //       {
-  //         amount: 39.6,
-  //         name: 'Protein',
-  //         unit: 'g',
-  //       },
-  //       {
-  //         amount: 388,
-  //         name: 'Sodium',
-  //         type: '57b42a48b7e8697d4b30530b',
-  //         unit: 'mg',
-  //       },
-  //     ],
-  //     ingredients: [
-  //       {
-  //         id: '5fae01355a2ab9306616d5b0',
-  //         name: 'potato',
-  //         description: null,
-  //         imageLink:
-  //           'https://d3hvwccx09j84u.cloudfront.net/200,200/ingredient/5fae01355a2ab9306616d5b0-a7aba26d.png',
-  //         allergens: [],
-  //       },
-  //     ],
-  //     steps: [
-  //       {
-  //         imageUrl: '',
-  //         index: 1,
-  //         ingredients: [],
-  //         instruction:
-  //           'Preheat the oven to 240°C/220°C fan-forced. Cut\nthe potato into large chunks and place on a lined\noven tray. Add the turmeric (see ingredients),\nbrown mustard seeds and a drizzle of olive oil.\nSeason with salt and pepper. Toss to coat, then\nbake until tender, 20-25 minutes.',
-  //       },
-  //     ],
-  //     author: {
-  //       name: 'Roel Aufderehar',
-  //       href: '#',
-  //     },
-  //   },
-  // ]
-
   /**
    * Retrieves the data from the API
    */
@@ -77,7 +21,7 @@ export default function Recipes() {
     })
   }
 
-  /** Use React States to GET the data from the API */
+  // use react states to GET the data from the API
   const [recipes, setRecipes] = useState()
   useEffect(() => {
     fetchData()
@@ -88,9 +32,9 @@ export default function Recipes() {
    * @param {string} recipe
    */
   const deleteRecipe = (recipe) => {
-    const { id, title } = recipe
+    const { _id, title } = recipe
     axios
-      .delete(`/recipes/${id}`)
+      .delete(`/recipe/${_id}`)
       .then((res) => {
         console.log('🚀 ~ res', res)
         toast(
@@ -98,7 +42,7 @@ export default function Recipes() {
             <span>
               Recipe <b>{title}</b> deleted!
               <br />
-              ID: <b>{id}</b>
+              ID: <b>{_id}</b>
             </span>
           ),
           {
@@ -126,7 +70,7 @@ export default function Recipes() {
         <div className="mt-12 max-w-lg mx-auto grid gap-5 lg:grid-cols-3 lg:max-w-none">
           {recipes.slice(0, 5).map((recipe) => (
             <div
-              key={recipe.id}
+              key={recipe._id}
               className="flex flex-col rounded-lg shadow-lg overflow-hidden"
             >
               <button
@@ -139,13 +83,13 @@ export default function Recipes() {
               <div className="flex-shrink-0">
                 <img
                   className="h-48 w-full object-cover"
-                  src={recipe.imageURL}
+                  src={recipe.imageUrl}
                   alt="Recipe Image"
                 />
               </div>
               <div className="flex-1 bg-white p-6 flex flex-col justify-between">
                 <div className="flex-1">
-                  <div className="mb-2 flex items-center">
+                  {/* <div className="mb-2 flex items-center">
                     <div className="flex-shrink-0 flex">
                       <StarIcon
                         className="h-6 w-6 fill-current text-yellow-500"
@@ -168,7 +112,7 @@ export default function Recipes() {
                         aria-hidden="true"
                       />
                     </div>
-                  </div>
+                  </div> */}
                   <div className="flex justify-between">
                     <p className="text-sm font-medium text-indigo-600">
                       {recipe.name}
@@ -203,7 +147,7 @@ export default function Recipes() {
                   </div>
                 </div>
                 <div className="mt-6 flex items-center">
-                  <Link href={`/recipe/${recipe.id}`}>
+                  <Link href={`/recipe/${recipe._id}`}>
                     <a className="w-full">
                       <button
                         type="button"

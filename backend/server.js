@@ -1,5 +1,6 @@
 const express = require("express");
-const recipeRoutes = require("./api/routes/recipeRoutes.js");
+const cors = require('cors')
+const routes = require("./api/routes/recipeRoutes");
 
 // Import DB Connection
 require("./config/db");
@@ -8,6 +9,8 @@ require("./config/db");
 const app = express();
 const port = process.env.PORT || 5000;
 
+// use cors
+app.use(cors())
 // parse the data to json
 app.use(express.json());
 
@@ -16,6 +19,5 @@ app.listen(port, () => {
   console.log(`Hello Fresh Backend listening at http://localhost:${port}`);
 });
 
-// Import API route
-const routes = require("./api/routes/recipeRoutes"); //importing route
+// Use API route
 routes(app);
