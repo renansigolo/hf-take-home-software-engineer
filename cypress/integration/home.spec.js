@@ -1,4 +1,4 @@
-context('Navigation Pages', () => {
+context('Home Page', () => {
   beforeEach(() => {
     cy.visit('/')
   })
