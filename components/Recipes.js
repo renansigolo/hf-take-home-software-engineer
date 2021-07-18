@@ -52,12 +52,12 @@ export default function Recipes() {
           }
         )
       })
-      .catch((err) => {
-        console.log('🚀 ~ deleteRecipe ~ err', err)
-      })
-      .finally(() => {
+      .then(() => {
         // Request a new data fetch to update the UI
         fetchData()
+      })
+      .catch((err) => {
+        console.log('🚀 ~ deleteRecipe ~ err', err)
       })
   }
 
