@@ -1,0 +1,89 @@
+{
+  "info": {
+    "_postman_id": "625dba1f-5dab-4b1b-9603-fb9a0105da6e",
+    "name": "Hello Fresh",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "List Recipes",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "localhost:5000/recipes",
+          "host": ["localhost"],
+          "port": "5000",
+          "path": ["recipes"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "New Recipe",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"Beef with Dijon Mustard\",\n  \"headline\": \"Lorem ipsum dolor sit amet\",\n  \"imageUrl\": \"/images/recipe/photo-1504674900247-0877df9cc836.webp\",\n  \"link\": \"hf.renansigolo.com/recipe/{id}\",\n  \"isActive\": true,\n  \"totalOrdered\": 600,\n  \"rating\": 2\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "localhost:5000/recipes",
+          "host": ["localhost"],
+          "port": "5000",
+          "path": ["recipes"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Update Recipe",
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"New Beef with Dijon Mustard\",\n  \"headline\": \"Lorem ipsum dolor sit amet\",\n  \"imageUrl\": \"/images/recipe/photo-1504674900247-0877df9cc836.webp\",\n  \"link\": \"hf.renansigolo.com/recipe/{id}\",\n  \"isActive\": true,\n  \"totalOrdered\": 4000,\n  \"rating\": 5\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "localhost:5000/recipe/60f3da2751b365ab3e0263af",
+          "host": ["localhost"],
+          "port": "5000",
+          "path": ["recipe", "60f3da2751b365ab3e0263af"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Delete Recipe",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "localhost:5000/recipe/60f3e82fd62f2e0799fae078",
+          "host": ["localhost"],
+          "port": "5000",
+          "path": ["recipe", "60f3e82fd62f2e0799fae078"]
+        }
+      },
+      "response": []
+    }
+  ],
+  "variable": [
+    {
+      "key": "id",
+      "value": "id"
+    }
+  ]
+}

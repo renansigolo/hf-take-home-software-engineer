@@ -2,7 +2,7 @@ import { BadgeCheckIcon } from '@heroicons/react/outline'
 import Link from 'next/link'
 
 /**
- * Markup for routes to be done
+ * Markup for routes to be completed
  * @param {string} title
  * @returns
  */

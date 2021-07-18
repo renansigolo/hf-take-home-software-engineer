@@ -26,7 +26,7 @@
     "fix": "next lint --fix .",
     "lint": "eslint .",
     "format": "prettier '**/*' --write --ignore-unknown",
-    "start": "next start",
+    "start": "concurrently npm:backend next start",
     "test": "npm run build && concurrently -k npm:backend npm:start npm:cypress:run"
   },
   "dependencies": {
