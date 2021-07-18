@@ -13,7 +13,7 @@
 // the project's config changing)
 
 // load the environment variables from the local .env file
-require("dotenv").config()
+require('dotenv').config()
 
 /**
  * @type {Cypress.PluginConfig}

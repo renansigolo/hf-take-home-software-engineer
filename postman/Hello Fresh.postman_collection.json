@@ -1,29 +1,23 @@
 {
-	"info": {
-		"_postman_id": "625dba1f-5dab-4b1b-9603-fb9a0105da6e",
-		"name": "Hello Fresh",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
-	},
-	"item": [
-		{
-			"name": "List Recipes",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "https://60efdf12f587af00179d3b28.mockapi.io/recipes",
-					"protocol": "https",
-					"host": [
-						"60efdf12f587af00179d3b28",
-						"mockapi",
-						"io"
-					],
-					"path": [
-						"recipes"
-					]
-				}
-			},
-			"response": []
-		}
-	]
+  "info": {
+    "_postman_id": "625dba1f-5dab-4b1b-9603-fb9a0105da6e",
+    "name": "Hello Fresh",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "List Recipes",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://60efdf12f587af00179d3b28.mockapi.io/recipes",
+          "protocol": "https",
+          "host": ["60efdf12f587af00179d3b28", "mockapi", "io"],
+          "path": ["recipes"]
+        }
+      },
+      "response": []
+    }
+  ]
 }
