@@ -26,6 +26,7 @@ View [CONTRIBUTING.md](CONTRIBUTING.md) to learn about the style guide, scripts,
 
 - [Next.js](https://nextjs.org/) - The React framework
 - [Tailwind CSS](https://tailwindcss.com/) - The CSS framework
+- [MongoDB Atlas](https://www.mongodb.com/cloud/atlas/) - Hosting MongoDB in the cloud with MongoDB Atlas
 
 ## Dev tools
 
@@ -41,21 +42,3 @@ View [CONTRIBUTING.md](CONTRIBUTING.md) to learn about the style guide, scripts,
 ## License
 
 - This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details
-
-## TODO
-
-1. Create a single-page application (SPA) which allows an end user
-
-   1.1 create/<s>read</s>/update/<s>delete</s> recipies. Render recipies as paginated list, display a selected data points.
-
-   1.2 create/read/update/delete weekly menu. Render weekly menu as paginated list (typically 52 weeks in a year).
-
-   1.3 assign recipies to weekly weekly menu
-
-<s>2. You can use mock data or APIs, else you create REST/GraphQL endpoints</s>
-
-3. Write a few unit tests and <s>end-to-end tests</s> for components
-
-<s>4. Write CI/CD pipeline using Github action and deploy app to Github Pages</s>
-
-5. Bonus point if you add Google Authentication and protect routes.

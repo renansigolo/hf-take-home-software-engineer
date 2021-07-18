@@ -27,7 +27,7 @@
     "lint": "eslint .",
     "format": "prettier '**/*' --write --ignore-unknown",
     "start": "next start",
-    "test": "npm run build && concurrently -k npm:start npm:cypress:run"
+    "test": "npm run build && concurrently -k npm:backend npm:start npm:cypress:run"
   },
   "dependencies": {
     "@headlessui/react": "^1.3.0",

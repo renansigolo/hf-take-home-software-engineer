@@ -1,6 +1,6 @@
 import {
   PencilIcon,
-  StarIcon,
+  // StarIcon,
   TrashIcon,
   UserGroupIcon,
 } from '@heroicons/react/outline'
@@ -9,9 +9,11 @@ import axios from 'axios'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
+import SectionFooter from './SectionFooter'
 
 /** Recipes Component */
 export default function Recipes() {
+  // let recipesShowing = 10
   /**
    * Retrieves the data from the API
    */
@@ -50,12 +52,12 @@ export default function Recipes() {
           }
         )
       })
-      .then(() => {
-        // Request a new data fetch to update the UI
-        fetchData()
-      })
       .catch((err) => {
         console.log('🚀 ~ deleteRecipe ~ err', err)
+      })
+      .finally(() => {
+        // Request a new data fetch to update the UI
+        fetchData()
       })
   }
 
@@ -68,7 +70,7 @@ export default function Recipes() {
       </div>
       <div className="relative max-w-7xl mx-auto">
         <div className="mt-12 max-w-lg mx-auto grid gap-5 lg:grid-cols-3 lg:max-w-none">
-          {recipes.slice(0, 5).map((recipe) => (
+          {recipes.slice(0, 10).map((recipe) => (
             <div
               key={recipe._id}
               className="flex flex-col rounded-lg shadow-lg overflow-hidden"
@@ -167,6 +169,7 @@ export default function Recipes() {
           ))}
         </div>
       </div>
+      <SectionFooter results={10} />
     </div>
   )
 }

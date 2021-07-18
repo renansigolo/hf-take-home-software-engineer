@@ -27,17 +27,18 @@ context('Home Page', () => {
   it('has the correct key values', () => {
     getItems().each((value) =>
       expect(value).to.have.all.keys(
-        'createdAt',
-        'isActive',
+        '__v',
+        '_id',
         'name',
-        'imageURL',
-        'link',
-        'selection',
-        'rating',
-        'nutrition',
         'headline',
+        'imageUrl',
+        'link',
+        'isActive',
         'totalOrdered',
-        'id'
+        'rating',
+        // 'nutrition',
+        // 'ingredients',
+        // 'steps',
       )
     )
   })

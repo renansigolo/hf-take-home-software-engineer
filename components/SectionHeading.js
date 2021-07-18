@@ -23,6 +23,9 @@ export default function SectionHeading({ title }) {
       isActive: Math.random() < 0.5,
       totalOrdered: randomNumber(1000),
       rating: randomNumber(5),
+      nutrition: {},
+      ingredients: {},
+      steps: {},
     }
 
     // POST a new recipe

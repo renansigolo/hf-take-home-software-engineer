@@ -27,9 +27,9 @@ const RecipeSchema = new mongoose.Schema({
   rating: {
     type: Number,
   },
-  nutrition: {},
-  ingredients: {},
-  steps: {},
+  // nutrition: {},
+  // ingredients: {},
+  // steps: {},
 });
 
 // automatically generate createdAt and updatedAt fields for your document
