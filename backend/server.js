@@ -8,7 +8,7 @@ require('./config/db')
 // create express app on port 5000
 const app = express()
 const hostname = 'localhost'
-const port = 5000
+const port = 8080
 
 // use cors
 app.use(cors())
